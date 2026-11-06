@@ -15,4 +15,4 @@ cpSync("assets/icon.png", "dist/icon.png");
 cpSync("assets/tessdata", "dist/web/tess/lang", { recursive: true });
 cpSync("node_modules/tesseract.js/dist/worker.min.js", "dist/web/tess/worker.min.js");
 for (const f of readdirSync("node_modules/tesseract.js-core"))
-  if (f.includes("lstm")) cpSync(`node_modules/tesseract.js-core/${f}`, `dist/web/tess/core/${f}`);
+  if (f.endsWith("-lstm.wasm.js")) cpSync(`node_modules/tesseract.js-core/${f}`, `dist/web/tess/core/${f}`);

@@ -1,7 +1,7 @@
 {
   "name": "verde-snap",
   "productName": "VerdeSnap",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "My screenshot, mark-up, read-text and translate tool for Windows",
   "main": "dist/main.js",
@@ -18,10 +18,8 @@
     "electron-builder": "^26.18.0",
     "esbuild": "^0.28.2",
     "lucide": "^1.70.0",
+    "tesseract.js": "^7.0.0",
     "typescript": "^7.0.2"
-  },
-  "dependencies": {
-    "tesseract.js": "^7.0.0"
   },
   "author": "Verde",
   "build": {
@@ -41,6 +39,12 @@
     "nsis": {
       "oneClick": true,
       "perMachine": false
-    }
+    },
+    "electronLanguages": [
+      "en-US",
+      "es",
+      "zh-CN"
+    ],
+    "compression": "maximum"
   }
 }
