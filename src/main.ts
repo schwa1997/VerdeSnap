@@ -32,9 +32,9 @@ let retry: NodeJS.Timeout | null = null;
 
 const lang = () => (app.getLocale().startsWith("es") ? "es" : "en");
 
-/** The AI settings: only SNAP_AI_URL and SNAP_AI_MODEL, from .env next to the app. */
+/** The AI settings: SNAP_AI_URL and SNAP_AI_MODEL, kept on this computer and never in the installer. */
 function aiConfig(): AiConfig | null {
-  const file = app.isPackaged ? path.join(process.resourcesPath, "ai.env") : path.join(app.getAppPath(), ".env");
+  const file = app.isPackaged ? path.join(app.getPath("userData"), "ai.env") : path.join(app.getAppPath(), ".env");
   if (!existsSync(file)) return null;
   const env = Object.fromEntries(
     readFileSync(file, "utf8").split(/\r?\n/).flatMap((line) => {

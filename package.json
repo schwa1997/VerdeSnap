@@ -34,12 +34,6 @@
       "dist/**",
       "package.json"
     ],
-    "extraResources": [
-      {
-        "from": ".env",
-        "to": "ai.env"
-      }
-    ],
     "win": {
       "target": "nsis",
       "icon": "assets/icon.png"

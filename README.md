@@ -8,9 +8,19 @@ My screenshot tool for Windows: snip, mark up, read the text, translate it with 
 - http://localhost:6789 shows it's running and can start a snap (only from this computer)
 - Starts with Windows; turn that off in the tray menu
 
+## Translating
+
+Everything except translating works straight after installing. To translate, point it at any OpenAI-compatible
+API by creating `%APPDATA%\VerdeSnapi.env`:
+
+```
+SNAP_AI_URL=http://your-server/v1
+SNAP_AI_MODEL=your-model
+```
+
 ## Setup
 
-Copy `.env.example` to `.env` and fill in `SNAP_AI_URL` and `SNAP_AI_MODEL`. Only those two go into the app.
+Copy `.env.example` to `.env` and fill in `SNAP_AI_URL` and `SNAP_AI_MODEL`. This is only for running from source.
 
 ```
 npm install
