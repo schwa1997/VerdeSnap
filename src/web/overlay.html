@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; connect-src 'self' app: blob: data:; worker-src 'self' blob:" />
+    <title>VerdeSnap</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="overlay">
+    <canvas id="screen"></canvas>
+    <p id="hint" hidden></p>
+    <canvas id="view" hidden></canvas>
+    <div id="bar" hidden></div>
+    <aside id="panel" hidden></aside>
+    <script src="overlay.js"></script>
+  </body>
+</html>

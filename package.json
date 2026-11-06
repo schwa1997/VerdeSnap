@@ -1,0 +1,52 @@
+{
+  "name": "verde-snap",
+  "productName": "VerdeSnap",
+  "version": "0.1.0",
+  "private": true,
+  "description": "My screenshot, mark-up, read-text and translate tool for Windows",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "node build.mjs",
+    "start": "node build.mjs && electron .",
+    "typecheck": "tsc --noEmit",
+    "dist": "node build.mjs && electron-builder --win --x64",
+    "icon": "electron scripts/make-icon.cjs"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "electron": "^45.2.3",
+    "electron-builder": "^26.18.0",
+    "esbuild": "^0.28.2",
+    "lucide": "^1.70.0",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "tesseract.js": "^7.0.0"
+  },
+  "author": "Verde",
+  "build": {
+    "appId": "com.verde.snap",
+    "productName": "VerdeSnap",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": ".env",
+        "to": "ai.env"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false
+    }
+  }
+}

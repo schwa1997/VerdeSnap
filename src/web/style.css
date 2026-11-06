@@ -1,0 +1,117 @@
+:root {
+  color-scheme: light dark;
+  --pine: #1f6b45;
+  --forest: #2f7d4a;
+  --leaf: #8dbf5a;
+  --sprout: #e6f2d9;
+  --paper: #f6faef;
+  --ink: #24342b;
+  --muted: #5d7265;
+  --line: #cfe6c4;
+  --card: rgba(255, 255, 255, 0.94);
+  --shadow: 0 8px 28px -10px rgba(31, 107, 69, 0.55);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --pine: #b5e48c;
+    --forest: #2f7d4a;
+    --sprout: rgba(31, 107, 69, 0.45);
+    --paper: #0e1a17;
+    --ink: #e9e3d3;
+    --muted: #9db3a4;
+    --line: #24483a;
+    --card: rgba(19, 32, 25, 0.95);
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; user-select: none; }
+body { font: 13px/1.45 "Segoe UI", "Microsoft YaHei", sans-serif; color: var(--ink); }
+[hidden] { display: none !important; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+button:focus-visible { outline: 2px solid var(--leaf); outline-offset: 1px; }
+
+/* the frozen screen */
+.overlay { background: #0b130e; }
+#screen { position: fixed; inset: 0; width: 100vw; height: 100vh; cursor: crosshair; display: block; }
+#screen.done { cursor: default; }
+#view { position: fixed; display: block; }
+#view.drawing { cursor: crosshair; }
+
+#hint {
+  position: fixed; top: 18px; left: 50%; transform: translateX(-50%); margin: 0; padding: 6px 14px;
+  border-radius: 999px; background: var(--card); color: var(--pine); box-shadow: var(--shadow);
+  pointer-events: none; white-space: nowrap;
+}
+
+/* the toolbar, next to the picked area */
+#bar {
+  position: fixed; display: flex; flex-direction: column; gap: 2px; padding: 5px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow);
+}
+.row { display: flex; align-items: center; gap: 2px; }
+.sep { width: 1px; height: 22px; margin: 0 4px; background: var(--line); }
+.icon {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; color: var(--pine);
+  transition: background 0.12s;
+}
+.icon svg { width: 18px; height: 18px; }
+.icon:hover:not(:disabled) { background: var(--sprout); }
+.icon:disabled { opacity: 0.35; cursor: default; }
+.icon.on { background: var(--forest); color: #fff; }
+.icon.close { color: #e5484d; }
+.icon.done { color: #22b07d; }
+
+.options { padding: 3px 4px 1px; gap: 5px; border-top: 1px solid var(--line); margin-top: 3px; }
+.size { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; }
+.size.on, .char.on { background: var(--sprout); }
+.size span { display: block; border-radius: 50%; background: var(--ink); }
+.swatch { width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--line); }
+.swatch.on { box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--forest); }
+.char { width: 30px; height: 30px; border-radius: 8px; font-size: 17px; font-family: "Segoe UI Emoji", sans-serif; }
+
+/* what the snap says */
+#panel {
+  position: fixed; width: 300px; max-height: min(70vh, 520px); overflow: auto; padding: 12px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow);
+  user-select: text;
+}
+#panel, .said { scrollbar-width: thin; scrollbar-color: var(--leaf) transparent; }
+#panel h2 { margin: 0 0 6px; font-size: 13px; font-weight: 600; color: var(--pine); }
+#panel .block + .block { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
+#panel .busy { margin: 0; color: var(--muted); animation: breathe 1.6s ease-in-out infinite; }
+#panel .error { margin: 6px 0 0; color: #e5484d; font-size: 12px; }
+#panel .none { margin: 0; color: var(--muted); }
+.said { max-height: 180px; overflow: hidden auto; overflow-wrap: anywhere; margin: 0 0 6px; padding: 8px 10px; border-radius: 10px; background: var(--paper); white-space: pre-wrap; }
+.link { color: var(--forest); font-size: 12px; }
+.link:hover { text-decoration: underline; }
+.langs { display: flex; gap: 4px; margin-bottom: 8px; }
+.lang { padding: 3px 11px; border: 1px solid var(--line); border-radius: 999px; font-size: 12px; color: var(--pine); }
+.lang.on { background: var(--forest); border-color: var(--forest); color: #fff; }
+.lang:disabled { opacity: 0.5; cursor: default; }
+.check { display: flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 12px; color: var(--muted); }
+.check input { accent-color: var(--forest); margin: 0; }
+
+/* typing on the picture */
+#typing {
+  position: fixed; min-width: 120px; padding: 0; resize: none; overflow: hidden; outline: none;
+  border: 1px dashed var(--forest); border-radius: 4px; background: rgba(255, 255, 255, 0.6);
+  font-family: "Segoe UI", "Microsoft YaHei", sans-serif; font-weight: 600; line-height: 1.25;
+}
+
+@keyframes breathe { 50% { opacity: 0.5; } }
+@media (prefers-reduced-motion: reduce) {
+  #panel .busy { animation: none; }
+  .icon { transition: none; }
+}
+
+/* a pinned snap */
+.pin { background: #0b130e; -webkit-app-region: drag; }
+#pic { display: block; width: 100vw; height: 100vh; object-fit: contain; pointer-events: none; }
+#unpin {
+  position: fixed; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%;
+  background: rgba(11, 19, 14, 0.7); color: #fff; font-size: 15px; line-height: 1;
+  opacity: 0; -webkit-app-region: no-drag;
+}
+.pin:hover #unpin, #unpin:focus-visible { opacity: 1; }
