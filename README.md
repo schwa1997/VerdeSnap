@@ -11,7 +11,7 @@ My screenshot tool for Windows: snip, mark up, read the text, translate it with 
 ## Translating
 
 Everything except translating works straight after installing. To translate, point it at any OpenAI-compatible
-API by creating `%APPDATA%\VerdeSnapi.env`:
+API by creating `%APPDATA%\VerdeSnap\ai.env`:
 
 ```
 SNAP_AI_URL=http://your-server/v1
